@@ -1,0 +1,28 @@
+general:
+  version: 1
+
+  # Whether to allow multiple totems' effects to overlap in area.
+  # Defaults to false.
+  allow_overlap: false
+
+  cooldown:
+    # Whether to force players to wait before placing two consecutive totems.
+    # Defaults to true.
+    enable: true
+
+    # How long the player must wait before putting down another totem.
+    # The following suffixes are acceptable ways to denote the time required:
+    # - t : ticks
+    # - s : seconds
+    # - m : minutes
+    # - h : hours
+    #
+    # Specifying no suffix will make the value default to seconds.
+    #
+    # Defaults to 10 seconds (10s).
+    duration: "10"
+
+  # Whether to exclude Citizens2 NPCs from the totems' effects.
+  # Defaults to true.
+  avoid_npcs: true
+  # Come up with more config values

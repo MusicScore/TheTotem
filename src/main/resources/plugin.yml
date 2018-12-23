@@ -1,0 +1,29 @@
+name: TheTotem
+main: com.github.musicscore.thetotem.TheTotemPlugin
+prefix: "TheTotem"
+author: "MusicScore"
+version: 1.0
+description: "Adds multiple new totem types for varying effects."
+softdepend: ["Vault"]
+api-version: 1.13
+commands:
+  thetotem:
+    description: "Uses TheTotem features."
+    permission: thetotem.command
+    permission-message: "You do not have permission to use this command!"
+    aliases: ["totem", "thetotems"]
+    usage: "/thetotem [give/take/use] [totem_name] (power) (quantity) (player)"
+permissions:
+  thetotem.command:
+    default: op
+    description: "Allows use of the /thetotem command."
+  thetotem.bypass_cooldown:
+    default: op
+    description: "Allows the player to ignore the totem cooldown."
+  thetotem.use.*:
+    default: true
+    description: "Wildcard. Allows use of all totems."
+    children:
+      thetotem.use.healing_totem: true
+      thetotem.use.poison_totem: true
+      # add more stuff here

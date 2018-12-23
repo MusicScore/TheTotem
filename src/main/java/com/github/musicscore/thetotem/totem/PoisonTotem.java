@@ -14,11 +14,10 @@ import org.bukkit.potion.PotionEffectType;
 public class PoisonTotem extends GenericTotem {
 
     public boolean matchesItemStack(ItemStack item) {
-        NBTTagCompound tag = CraftItemStack.asNMSCopy(item).getTag();
-        if (item.getType() != Material.TOTEM_OF_UNDYING || tag == null) {
+        if (item.getType() != Material.TOTEM_OF_UNDYING || !verifyItemStackNBT(item)) {
             return false;
         }
-        NBTTagCompound properties = tag.getCompound("TheTotemProperties");
+        NBTTagCompound properties = CraftItemStack.asNMSCopy(item).getTag().getCompound("TheTotemProperties");
         if (properties == null || !properties.getString("Type").equals("poison_totem")) {
             return false;
         }

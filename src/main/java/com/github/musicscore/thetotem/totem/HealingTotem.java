@@ -15,11 +15,10 @@ import org.bukkit.inventory.ItemStack;
 public class HealingTotem extends GenericTotem {
 
     public boolean matchesItemStack(ItemStack item) {
-        NBTTagCompound tag = CraftItemStack.asNMSCopy(item).getTag();
-        if (item.getType() != Material.TOTEM_OF_UNDYING || tag == null) {
+        if (item.getType() != Material.TOTEM_OF_UNDYING || !verifyItemStackNBT(item)) {
             return false;
         }
-        NBTTagCompound properties = tag.getCompound("TheTotemProperties");
+        NBTTagCompound properties = CraftItemStack.asNMSCopy(item).getTag().getCompound("TheTotemProperties");
         if (properties == null || !properties.getString("Type").equals("healing_totem")) {
             return false;
         }

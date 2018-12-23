@@ -30,6 +30,18 @@ public abstract class GenericTotem implements Listener {
      */
     public abstract boolean matchesItemStack(ItemStack item);
 
+    protected boolean verifyItemStackNBT(ItemStack item) {
+        NBTTagCompound compound = CraftItemStack.asNMSCopy(item).getTag();
+        if (compound == null || compound.getCompound("TheTotemProperties") == null) {
+            return false;
+        }
+        NBTTagCompound totemCompound = compound.getCompound("TheTotemProperties");
+        return totemCompound.hasKey("Type") &&
+                totemCompound.hasKey("Power") &&
+                totemCompound.hasKey("Active") &&
+                totemCompound.hasKey("RandomFactor");
+    }
+
     /**
      * Runs whenever the special Totem is used.
      * Does not run if the TheTotemEffectActivatesEvent event is cancelled.

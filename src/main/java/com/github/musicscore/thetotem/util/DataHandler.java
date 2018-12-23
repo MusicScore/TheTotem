@@ -12,15 +12,28 @@ public class DataHandler {
 
     private static FileConfiguration config = TheTotemPlugin.instance.getConfig();
 
+    /**
+     * Returns whether cooldowns are enabled.
+     *
+     * @return Returns if the player must wait between uses of any special Totem.
+     */
     public static boolean isTotemUseCooldownEnabled() {
         return config.getBoolean("general.cooldown.enabled");
     }
 
+    /**
+     * Returns the cooldown duration in milliseconds.
+     *
+     * @return How long the player must wait between uses of any special Totem, in milliseconds.
+     * <br>Returns 0 if cooldowns are not enabled.
+     */
     public static long getTotemUseCooldownDuration() {
+        if (!isTotemUseCooldownEnabled()) {
+            return 0;
+        }
+
         String option = config.getString("general.cooldown.duration", "10s");
         long durationInMilliseconds = 0;
-
-        // returns in milliseconds
         try {
             double duration = Double.parseDouble(option.substring(0, option.length() - 1));
             char suffix = option.charAt(option.length() - 1);

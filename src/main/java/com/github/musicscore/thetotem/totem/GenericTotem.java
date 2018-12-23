@@ -22,12 +22,25 @@ public abstract class GenericTotem implements Listener {
     Entity entity;
     NBTTagCompound itemTags;
 
+    /**
+     * Returns whether the ItemStack contains data usable by special Totems.
+     *
+     * @param item The ItemStack to compare.
+     * @return {@code True} if the ItemStack has properties usable by a special Totem.
+     */
     public abstract boolean matchesItemStack(ItemStack item);
 
+    /**
+     * Runs whenever the special Totem is used.
+     * Does not run if the TheTotemEffectActivatesEvent event is cancelled.
+     *
+     * @param location The Location where the effect should be performed.
+     */
     public abstract void forcePerformEffect(Location location);
 
     /**
      * Prevents a special Totem item from being misused.
+     *
      * @param event The EntityResurrectEvent event that fires.
      */
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -44,6 +57,7 @@ public abstract class GenericTotem implements Listener {
 
     /**
      * Runs when the player right clicks with a special Totem.
+     *
      * @param event The PlayerInteractEvent that fires.
      */
     @EventHandler
@@ -54,10 +68,12 @@ public abstract class GenericTotem implements Listener {
         }
         boolean isMainHand = event.getHand() == EquipmentSlot.HAND;
 
-        TheTotemEffectActivatesEvent totemEvent = new TheTotemEffectActivatesEvent(event.getPlayer(),
+        TheTotemEffectActivatesEvent totemEvent = new TheTotemEffectActivatesEvent(
+                event.getPlayer(),
                 event.getClickedBlock().getRelative(event.getBlockFace()).getLocation(),
                 this,
-                event.getItem());
+                event.getItem()
+        );
         Bukkit.getPluginManager().callEvent(totemEvent);
 
         itemTags = CraftItemStack.asNMSCopy(item).getTag().getCompound("TheTotemProperties");
